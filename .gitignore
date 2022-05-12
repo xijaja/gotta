@@ -1,7 +1,11 @@
 # 默认忽略的文件
 # ---------------------------------------------
 # ide的文件夹
-./idea
+.idea
+.idea/gotta.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
 
 # 开发者的配置文件
 *.yml
