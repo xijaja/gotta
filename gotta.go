@@ -8,8 +8,13 @@ import (
 )
 
 var (
-	OS   gottaos.GottaOS
-	Util utils.GottaUtils
+
+	// Time 时间
 	Time times.GottaTimes
+	// OS 系统
+	OS gottaos.GottaOS
+	// File 文件处理
 	File files.GottaFiles
+	// Util 实用小工具
+	Util utils.GottaUtils
 )
