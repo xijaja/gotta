@@ -1,10 +1,10 @@
 package gotta
 
 import (
-	"gotta/files"
-	"gotta/gottaos"
-	"gotta/times"
-	"gotta/utils"
+	"github.com/xiwuou/gotta/files"
+	"github.com/xiwuou/gotta/gottaos"
+	"github.com/xiwuou/gotta/times"
+	"github.com/xiwuou/gotta/utils"
 )
 
 var (
