@@ -3,7 +3,9 @@ package files
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
+	"time"
 )
 
 type GottaFiles byte
@@ -33,5 +35,40 @@ func (gf *GottaFiles) WriteSth(filePath string, sth string) {
 	if err != nil {
 		fmt.Println("写入文件失败", err)
 		return
+	}
+}
+
+// TraverseFileList 遍历指定目录的文件
+func (gf *GottaFiles) TraverseFileList(path string) (newPathList []string) {
+	// 增加后缀
+	if path[len(path)-1:] != "/" {
+		path += "/"
+	}
+	// 开始遍历
+	iterateOverFiles(path, func(newPath string) {
+		newPathList = append(newPathList, newPath)
+	})
+	// 等待遍历结束
+RE:
+	length := len(newPathList)
+	time.Sleep(2 * time.Second)
+	for len(newPathList) != length {
+		goto RE
+	}
+	return newPathList
+}
+
+// iterateOverFiles 遍历指定路径的文件
+func iterateOverFiles(path string, findOne func(file string)) {
+	fs, _ := ioutil.ReadDir(path) // 获取路径下的文件列表
+	for _, file := range fs {
+		if file.IsDir() {
+			// 遇到文件夹时就开启一个并发递归
+			go iterateOverFiles(path+file.Name()+"/", findOne)
+		} else {
+			filePath := path + file.Name()
+			fmt.Printf("扫描文件: \"%s\"\n", filePath)
+			findOne(filePath) // 调用函数参数
+		}
 	}
 }
